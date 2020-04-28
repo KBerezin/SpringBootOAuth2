@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Home page</title>
+</head>
+<body>
+
+<div class="container-fluid bg-light min-vh-100">
+
+    <div class="row bg-dark text-white p-3 mb-2">
+        <!-- Header -->
+        <div class="col my-auto">
+            LearningJS
+        </div>
+        <div class="col text-right">
+            <form action="#" th:action="@{/logout}" method="POST">
+                <input class="btn btn-dark" type="submit" value="Logout">
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-2 list-group list-group-flush">
+            <a th:href="@{/users/}" class="list-group-item list-group-item-action">Admin</a>
+            <a th:href="@{/}" class="list-group-item list-group-item-action">User</a>
+        </div>
+
+        <!-- Content -->
+        <div class="col">
+            <h2>User page</h2>
+            <hr>
+            <span th:text="${'Hello'}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
