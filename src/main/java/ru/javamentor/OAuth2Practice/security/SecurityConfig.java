@@ -11,16 +11,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import ru.javamentor.OAuth2Practice.service.CustomOidcUserService;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final CustomOidcUserService customOidcUserService;
 
-    public SecurityConfig(@Qualifier("userServiceImpl") UserDetailsService userDetailsService, AuthenticationSuccessHandler authenticationSuccessHandler) {
+    public SecurityConfig(@Qualifier("userServiceImpl") UserDetailsService userDetailsService,
+                          AuthenticationSuccessHandler authenticationSuccessHandler,
+                          CustomOidcUserService customOidcUserService) {
         this.userDetailsService = userDetailsService;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.customOidcUserService = customOidcUserService;
     }
 
     @Bean
@@ -40,10 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .and()
-                .oauth2Login()
+                .exceptionHandling().accessDeniedPage("/access-denied")
                 .and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
-
+                .oauth2Login().userInfoEndpoint()
+                .oidcUserService(customOidcUserService);
     }
 
     @Override

@@ -37,7 +37,7 @@
         <div class="col">
             <h2>User page</h2>
             <hr>
-            <span th:text="${'Hello'}"></span>
+            <span th:text="${'Hello, ' + #authentication.getName() + '!'}"></span>
         </div>
     </div>
 </div>
